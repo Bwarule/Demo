@@ -9,7 +9,7 @@ get_class <- function(dataIn){
 NA_count <- function(x){return(sum(is.na(x)))}
 
 ## -- calculate the min, max, summary for each variable
-
+# perpose is just programing 
 each_summary <- function(dataIn){
 	Output <- data.frame()
 	for(i in 1:ncol(dataIn)){
