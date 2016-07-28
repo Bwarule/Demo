@@ -26,6 +26,8 @@ each_summary <- function(dataIn){
 }
 
 ## -- generate the frequency table for categorical variable
+# use table for categorical variable
+
 ## write the missing value impute code for each variable
 ImputationMissingvalue <- 
 function (dataIn, Method = "Mean", variable_List, MissingknoutP = 0.25) 
