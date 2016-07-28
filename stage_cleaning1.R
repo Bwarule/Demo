@@ -26,12 +26,14 @@ each_summary <- function(dataIn){
 }
 
 ## -- generate the frequency table for categorical variable
+library(sta4504)
 # use table for categorical variable
 
 # prop.test => test event rate over the different interval time for each qauter
 # check the stability of event rate belong to conf. interval or not.
 # why in some specific interval event rate is very high or low
 
+# chisq.test => Tests of Independence
 ## write the missing value impute code for each variable
 ImputationMissingvalue <- 
 function (dataIn, Method = "Mean", variable_List, MissingknoutP = 0.25) 
