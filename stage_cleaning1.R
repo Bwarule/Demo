@@ -7,6 +7,10 @@ get_class <- function(dataIn){
 
 ## -- calculate the count of missing value
 NA_count <- function(x){return(sum(is.na(x)))}
+non_numeric_count <- function(x){
+	value <- sum(is.na(as.numeric(as.character(x))))
+	return(value)
+	}
 
 ## -- calculate the min, max, summary for each variable
 # perpose is just programing 
