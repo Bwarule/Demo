@@ -1,6 +1,5 @@
 ## stage_dataprocess1.R
 ## do the univariate Regression  on each variable(p value <0.15)
-## do the univariate Regression  on each variable(p value <0.15)value
 univariate_regression <- function(mynew_vars,dataIn=mydata,Resp_var="target"){
     require(forward)
 
