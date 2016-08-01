@@ -1,5 +1,47 @@
 ## stage_dataprocess1.R
 ## do the univariate Regression  on each variable(p value <0.15)
+## do the univariate Regression  on each variable(p value <0.15)value
+univariate_regression <- function(mynew_vars,dataIn=mydata,Resp_var="target"){
+    require(forward)
+
+	formulas <- paste(Resp_var, sep="~",
+	fwd.combn(mynew_vars, 1, fun=function(x){paste(x,collapse="+")}))
+	
+	AForModel <- function(model,Resp_var,dataIn){
+		A_train <- sum(diag(table(dataIn[,Resp_var],round(predict(model, type='response', dataIn)))))/nrow(dataIn)
+		return(A_train)
+	}
+	Output_updateffect <- data.frame()
+	
+	for(j in 1:length(formulas)){
+		model_varformula <- as.character(formulas[j])
+		model <- glm(eval(parse(text=model_varformula)),family=binomial(link = "logit"),data =dataIn)
+		# summary(model)
+		AForModel(model,Resp_var,dataIn) ## 70 and 73
+		allvars <- strsplit(unlist(strsplit(model_varformula,"~"))[[2]],"\\+")
+		pvalue <- summary(model)$coefficients[[2,"Pr(>|z|)"]]
+		Zvalue <- summary(model)$coefficients[[2,"z value"]]
+		StdError <- summary(model)$coefficients[[2,"Std. Error"]]
+		Est <- summary(model)$coefficients[[2,"Estimate"]]
+
+
+		updateffect <- data.frame(usedVar = unlist(allvars),
+								Est = Est, StdError = StdError,
+								Zvalue = Zvalue, pvalue = pvalue,
+								Accuracy = AForModel(model,Resp_var,dataIn) )
+		# print(updateffect)						
+		if(nrow(Output_updateffect)==0){
+			Output_updateffect <- updateffect
+		}else{
+			Output_updateffect <- rbind(Output_updateffect, updateffect)
+		}
+
+	}
+	return(Output_updateffect)
+}
+
+# call function :univariate_regression(mynew_vars,dataIn,Resp_var="target")
+
 ## calculate the IV, gain ratio for each variable
 ## perform the stepwise Regression
 
