@@ -2,6 +2,9 @@
 ## summarise the model 
 ## calculate the ROC curve
 ## KS, misclassification table
+http://127.0.0.1:10343/library/ROCR/html/performance.html
+library(ROCR)
+# read more details for above statistics R package ROCR
 
 ## rank order 
 ## HL test 
