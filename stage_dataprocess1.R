@@ -1,5 +1,5 @@
 ## stage_dataprocess1.R
-
+# split data as per requirement
 x3 <- nrow(modeling_data)
 x2 <- as.integer(x3*(dev_sample))
 sub <- c(sample(1:x3, x2))
