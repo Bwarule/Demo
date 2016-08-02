@@ -1,4 +1,12 @@
 ## stage_dataprocess1.R
+
+x3 <- nrow(modeling_data)
+x2 <- as.integer(x3*(dev_sample))
+sub <- c(sample(1:x3, x2))
+	
+train_sample <- modeling_data[sub,]
+test_sample <- modeling_data[-sub,]	
+
 ## do the univariate Regression  on each variable(p value <0.15)
 univariate_regression <- function(mynew_vars,dataIn=mydata,Resp_var="target"){
     require(forward)
