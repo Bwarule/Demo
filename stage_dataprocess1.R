@@ -42,7 +42,33 @@ univariate_regression <- function(mynew_vars,dataIn=mydata,Resp_var="target"){
 # call function :univariate_regression(mynew_vars,dataIn,Resp_var="target")
 
 ## calculate the IV, gain ratio for each variable
+
+## use of library FSelector for varies measure 
+library(FSelector)
+
+weights <- information.gain(target~., train_sample)
+print(weights)
+subset <- cutoff.k(weights, 3)
+f <- as.simple.formula(subset, "target")
+print(f)
+
+weights <- gain.ratio(target~., train_sample)
+print(weights)
+subset <- cutoff.k(weights, 3)
+f <- as.simple.formula(subset, "target")
+print(f)
+
+weights <- symmetrical.uncertainty(target~., train_sample)
+print(weights)
+subset <- cutoff.biggest.diff(weights)
+f <- as.simple.formula(subset, "target")
+print(f)
+
 ## perform the stepwise Regression
+
+myModel <- glm(eval(parse(text=formulas)),
+			data=train_sample,family=binomial(link="logit")) 
+summary(step(myModel))			
 
 ## effect calculation of variable 
 ## suppose you finilise list of variable which are significant 
